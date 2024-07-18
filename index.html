@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Tabs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .tab-pane {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="margin-top: 50px">
+        <div class="row">
+            <button id="addTabBtn" class="btn btn-primary btn-sm" onclick="addNewTab()">
+                Add Tab
+            </button>
+
+            <div class="col-md-3">
+                <div class="inputs" id="inputs" style="border: 1px solid black; padding: 10px">
+                    <input type="text" class="form-control" value="Input 1" draggable="true" id="input1" />
+                    <input type="text" class="form-control" value="Input 2" draggable="true" id="input2" />
+                    <input type="text" class="form-control" value="Input 3" draggable="true" id="input3" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel with-nav-tabs panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs" id="tabHeaders">
+                            <li class="active">
+                                <a href="#tab1default" data-toggle="tab">Tab 1</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content" id="tabContents">
+                            <div class="tab-pane fade in active" id="tab1default">
+                                <div class="" style="margin-bottom: 10px">
+                                    <button class="btn btn-primary" onclick="addRow()">
+                                        Add Row
+                                    </button>
+                                    <button class="btn btn-primary" onclick="addColumn()">
+                                        Add Column
+                                    </button>
+                                </div>
+
+                                <div class="container">
+                                    <div class="grid" id="grid1">
+                                        <div class="grid-item" id="tab1-grid-item1"></div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="savePositions()">Save Positions</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="Tab.js"></script>
+
+    <script src="index.js"></script>
+
+     
+</body>
+
+</html>
