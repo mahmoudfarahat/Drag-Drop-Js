@@ -8,18 +8,20 @@ class Tab {
      constructor(tabCount){
         this.tabNumber = tabCount
         this.grid = document.getElementById('grid'+this.tabNumber);
-     };
+    };
+
+
 
      addRow(){
-         rowCount++;
+         this.rowCount++;
          this.applyDraging(this.colCount)
-         grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
+         this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
      };
 
      addColumn() {
-        colCount++;
+        this.colCount++;
         this.applyDraging(this.rowCount)
-        grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
+        this.grid.style.gridTemplateColumns = `repeat(${this.colCount}, 100px)`;
     }
     
     applyDraging(count) {
@@ -35,5 +37,7 @@ class Tab {
             this.grid.appendChild(newGridItem);
         }
     }
+
+    
 
 }

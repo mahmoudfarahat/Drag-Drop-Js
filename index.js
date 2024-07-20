@@ -97,11 +97,13 @@ function savePositions() {
     const json = JSON.stringify(configuration, null, 2);
     console.log(json);
 }
+
  
+let tabs = {};
+tabs[1] = new Tab(1);
 
-function addRow(tabNumber = 1) {
+function addRow() {
 
-    const tab = new Tab(tabCount);
         tab.addRow()
     // const grid = document.getElementById('grid'+tabNumber);
     // rowCount++;
@@ -109,31 +111,33 @@ function addRow(tabNumber = 1) {
     // grid.style.gridTemplateRows = `repeat(${rowCount}, 100px)`;
 }
 
-function addColumn(tabNumber =1) {
-    const grid = document.getElementById('grid'+tabNumber);
-    colCount++;
-    applyDraging(rowCount,tabNumber,grid)
-    grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
+function addColumn() {
+    tab.addColumn()
+    // const grid = document.getElementById('grid'+tabNumber);
+    // colCount++;
+    // applyDraging(rowCount,tabNumber,grid)
+    // grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
 }
 
 
-function applyDraging(count,tabNumber,grid) {
-    for (let i = 0; i < count; i++) {
-        gridItemCount++;
-        const newGridItem = document.createElement('div');
-        newGridItem.className = 'grid-item';
-        newGridItem.id = `tab${tabNumber}-grid-item${gridItemCount}`;
-        newGridItem.addEventListener('dragover', handleDragOver);
-        newGridItem.addEventListener('dragenter', handleDragEnter);
-        newGridItem.addEventListener('dragleave', handleDragLeave);
-        newGridItem.addEventListener('drop', handleDrop);
-        grid.appendChild(newGridItem);
-    }
-}
+// function applyDraging(count,tabNumber,grid) {
+//     for (let i = 0; i < count; i++) {
+//         gridItemCount++;
+//         const newGridItem = document.createElement('div');
+//         newGridItem.className = 'grid-item';
+//         newGridItem.id = `tab${tabNumber}-grid-item${gridItemCount}`;
+//         newGridItem.addEventListener('dragover', handleDragOver);
+//         newGridItem.addEventListener('dragenter', handleDragEnter);
+//         newGridItem.addEventListener('dragleave', handleDragLeave);
+//         newGridItem.addEventListener('drop', handleDrop);
+//         grid.appendChild(newGridItem);
+//     }
+// }
 
 
 
 function addNewTab() {
+
     tabCount++;
     const tabId = "tab" + tabCount + "default";
     const tabTitle = "Tab " + tabCount;
@@ -154,10 +158,10 @@ function addNewTab() {
 function addGrid(newTab, tabNumber) {
 
     const girdBody = `<div style="margin-bottom: 10px">
-                                    <button class="btn btn-primary" onclick="addRow(${tabNumber})">
+                               <button class="btn btn-primary" onclick="tabs[${tabNumber}].addRow()">
                                         Add Row
                                     </button>
-                                    <button class="btn btn-primary" onclick="addColumn(${tabNumber})">
+                                <button class="btn btn-primary" onclick="tabs[${tabNumber}].addColumn()">
                                         Add Column
                                     </button>
                                 </div>
@@ -175,3 +179,26 @@ function addGrid(newTab, tabNumber) {
     
     applyDragingForCells()
 }
+
+
+
+ function addTab(){
+
+    tabCount++
+    const tabId = "tab" + tabCount + "default";
+    const tabTitle = "Tab " + tabCount;
+    const newTabHeader = $('<li><a href="#' + tabId + '" data-toggle="tab">' + tabTitle + "</a></li>");
+
+    $("#tabHeaders").append(newTabHeader);
+
+    
+    const newTabContent = $('<div class="tab-pane fade" id="' + tabId + '">' + "</div>");
+
+    $("#tabContents").append(newTabContent);
+
+    addGrid(newTabContent, tabCount)
+ 
+    tabs[tabCount] = new Tab(tabCount);
+
+}
+
