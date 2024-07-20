@@ -1,8 +1,8 @@
 let draggedItem = null;
 let positions = {};
-let rowCount = 1; // Initial number of rows
-let colCount = 1; // Initial number of columns
-let gridItemCount = 1; // Initial number of grid items
+// let rowCount = 1; // Initial number of rows
+// let colCount = 1; // Initial number of columns
+// let gridItemCount = 1; // Initial number of grid items
 let tabCount = 1;
 
  
@@ -102,22 +102,22 @@ function savePositions() {
 let tabs = {};
 tabs[1] = new Tab(1);
 
-function addRow() {
+// function addRow() {
 
-        tab.addRow()
-    // const grid = document.getElementById('grid'+tabNumber);
-    // rowCount++;
-    // applyDraging(colCount,tabNumber,grid)
-    // grid.style.gridTemplateRows = `repeat(${rowCount}, 100px)`;
-}
+//         tab.addRow()
+//     // const grid = document.getElementById('grid'+tabNumber);
+//     // rowCount++;
+//     // applyDraging(colCount,tabNumber,grid)
+//     // grid.style.gridTemplateRows = `repeat(${rowCount}, 100px)`;
+// }
 
-function addColumn() {
-    tab.addColumn()
-    // const grid = document.getElementById('grid'+tabNumber);
-    // colCount++;
-    // applyDraging(rowCount,tabNumber,grid)
-    // grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
-}
+// function addColumn() {
+//     tab.addColumn()
+//     // const grid = document.getElementById('grid'+tabNumber);
+//     // colCount++;
+//     // applyDraging(rowCount,tabNumber,grid)
+//     // grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
+// }
 
 
 // function applyDraging(count,tabNumber,grid) {
@@ -136,24 +136,24 @@ function addColumn() {
 
 
 
-function addNewTab() {
+// function addNewTab() {
 
-    tabCount++;
-    const tabId = "tab" + tabCount + "default";
-    const tabTitle = "Tab " + tabCount;
+//     tabCount++;
+//     const tabId = "tab" + tabCount + "default";
+//     const tabTitle = "Tab " + tabCount;
 
-    // Add new tab header
-    const newTabHeader = $('<li><a href="#' + tabId + '" data-toggle="tab">' + tabTitle + "</a></li>");
+//     // Add new tab header
+//     const newTabHeader = $('<li><a href="#' + tabId + '" data-toggle="tab">' + tabTitle + "</a></li>");
 
-    $("#tabHeaders").append(newTabHeader);
+//     $("#tabHeaders").append(newTabHeader);
 
-    // Add new tab content
-    const newTabContent = $('<div class="tab-pane fade" id="' + tabId + '">' + "</div>");
+//     // Add new tab content
+//     const newTabContent = $('<div class="tab-pane fade" id="' + tabId + '">' + "</div>");
 
-    $("#tabContents").append(newTabContent);
+//     $("#tabContents").append(newTabContent);
 
-    addGrid(newTabContent, tabCount)
-}
+//     addGrid(newTabContent, tabCount)
+// }
 
 function addGrid(newTab, tabNumber) {
 
