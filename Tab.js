@@ -4,7 +4,9 @@ class Tab {
      gridItemCount = 1; 
      tabNumber;
      grid ;
-     o = 0
+     o = 0;
+     dargableDivWithChildren = [];
+     dargableDivWithOutChildren = [];
      constructor(tabCount){
         this.tabNumber = tabCount
         this.grid = document.getElementById('grid'+this.tabNumber);
@@ -18,10 +20,7 @@ class Tab {
          this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
      };
 
-     deleteRow(){
-        this.rowCount--;
-        this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
-     }
+     
 
      addColumn() {
         this.colCount++;
@@ -41,8 +40,14 @@ class Tab {
             newGridItem.addEventListener('dragenter', handleDragEnter);
             newGridItem.addEventListener('dragleave', handleDragLeave);
             newGridItem.addEventListener('drop', handleDrop);
+             
             this.grid.appendChild(newGridItem);
         }
+    }
+    getDargableDivs(){
+        this.grid.querySelectorAll('.grid-item').forEach((item, index) => {
+          item.children.length == 0 ? this.dargableDivWithOutChildren.push(item) : this.dargableDivWithChildren.push(item)
+        })
     }
     getPostions(){
         const positions = [];
@@ -60,19 +65,26 @@ class Tab {
         return positions;
     }
     deleteRow() {
-        if (this.rowCount > 1) {
-            this.rowCount--;
-            this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
-            this.removeExcessGridItems(this.colCount);
+        this.getDargableDivs()
+        if(this.dargableDivWithChildren.length <  this.dargableDivWithOutChildren.length ){
+            if (this.rowCount > 1) {
+                this.rowCount--;
+                this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
+                this.removeExcessGridItems(this.colCount);
+            }
         }
+       
     }
     
     deleteColumn() {
+        this.getDargableDivs()
+        if(this.dargableDivWithChildren.length <  this.dargableDivWithOutChildren.length ){
         if (this.colCount > 1) {
             this.colCount--;
             this.grid.style.gridTemplateColumns = `repeat(${this.colCount}, 100px)`;
             this.removeExcessGridItems();
         }
+    }
     }
 
     removeExcessGridItems() {
