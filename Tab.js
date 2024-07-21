@@ -4,6 +4,7 @@ class Tab {
      gridItemCount = 1; 
      tabNumber;
      grid ;
+     o = 0
      constructor(tabCount){
         this.tabNumber = tabCount
         this.grid = document.getElementById('grid'+this.tabNumber);
@@ -17,6 +18,11 @@ class Tab {
          this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
      };
 
+     deleteRow(){
+        this.rowCount--;
+        this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
+     }
+
      addColumn() {
         this.colCount++;
         this.applyDraging(this.rowCount)
@@ -27,6 +33,8 @@ class Tab {
         for (let i = 0; i < count; i++) {
             this.gridItemCount++;
             const newGridItem = document.createElement('div');
+          
+          
             newGridItem.className = 'grid-item';
             newGridItem.id = `tab${this.tabNumber}-grid-item${this.gridItemCount}`;
             newGridItem.addEventListener('dragover', handleDragOver);
@@ -51,7 +59,39 @@ class Tab {
         });
         return positions;
     }
+    deleteRow() {
+        if (this.rowCount > 1) {
+            this.rowCount--;
+            this.grid.style.gridTemplateRows = `repeat(${this.rowCount}, 100px)`;
+            this.removeExcessGridItems(this.colCount);
+        }
+    }
+    
+    deleteColumn() {
+        if (this.colCount > 1) {
+            this.colCount--;
+            this.grid.style.gridTemplateColumns = `repeat(${this.colCount}, 100px)`;
+            this.removeExcessGridItems();
+        }
+    }
+
+    removeExcessGridItems() {
+        const items = Array.from(this.grid.querySelectorAll('.grid-item'));
+        const newItemCount = this.rowCount * this.colCount;
+        // Remove excess items from the end
+        let index = items.length - 1;
+       while (items.length > newItemCount && index >= 0) {
+         const item = items[index]; // Get the item at the current index
+         if (item.children.length == 0) {
+            item.remove(); // Remove the item from the DOM
+            items.splice(index, 1); // Remove the item from the array
+            this.gridItemCount--;
+        }
+        index--; // Move to the previous item
+    }
+    }
 
     
+
 
 }

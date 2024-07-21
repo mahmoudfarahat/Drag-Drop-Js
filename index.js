@@ -3,9 +3,11 @@ let positions = {};
 let tabCount = 1;
 
 let tabs = {};
+
+// First Tab
 tabs[1] = new Tab(1);
 
-
+// when i start to Drap aa item
 document.addEventListener('dragstart', (e) => {
     if (e.target.tagName === 'INPUT') {
         draggedItem = e.target;
@@ -15,39 +17,30 @@ document.addEventListener('dragstart', (e) => {
     }
 });
 
-
+// when i leave the mouse 
 document.addEventListener('dragend', (e) => {
     setTimeout(() => {
         e.target.style.display = 'block';
         draggedItem = null;
     }, 0);
 });
-ApplyDragingForMainDiv()
-function ApplyDragingForMainDiv(){
-    let inputsDiv = document.getElementById('inputs')
-
-    inputsDiv.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
-
-    inputsDiv.addEventListener('drop', (e) => {
-        e.preventDefault();
-        inputsDiv.appendChild(draggedItem)
-    });
 
 
-}
 
 
 function applyDragingForCells(){
+
     document.querySelectorAll('.grid-item').forEach(item => {
+        
         item.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
     
         item.addEventListener('dragenter', (e) => {
+            if(item.children.length == 0){
             e.preventDefault();
             item.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+            }
         });
     
         item.addEventListener('dragleave', (e) => {
@@ -55,12 +48,15 @@ function applyDragingForCells(){
         });
     
         item.addEventListener('drop', (e) => {
-            item.style.backgroundColor = 'transparent';
-            item.appendChild(draggedItem);
+            if(item.children.length == 0){
+                item.style.backgroundColor = 'transparent';
+                item.appendChild(draggedItem);
+            }
+           
          
         });
+
     });
-    
     
 }
 
@@ -74,8 +70,10 @@ function handleDragOver(e) {
 }
 
 function handleDragEnter(e) {
+    if(e.target.children.length == 0 && e.target.tagName != 'INPUT'){
     e.preventDefault();
     e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    }
 }
 
 function handleDragLeave(e) {
@@ -83,8 +81,10 @@ function handleDragLeave(e) {
 }
 
 function handleDrop(e) {
+     if(e.target.children.length == 0 && e.target.tagName != 'INPUT' ){
     e.target.style.backgroundColor = 'transparent';
     e.target.appendChild(draggedItem);
+}
     
 }
 
@@ -130,6 +130,7 @@ function addGrid(newTab, tabNumber) {
  function addTab(){
 
     tabCount++
+    
     const tabId = "tab" + tabCount + "default";
     const tabTitle = "Tab " + tabCount;
     const newTabHeader = $('<li><a href="#' + tabId + '" data-toggle="tab">' + tabTitle + "</a></li>");
@@ -147,3 +148,21 @@ function addGrid(newTab, tabNumber) {
 
 }
 
+
+// Make the input div Draggable
+ApplyDragingForInputsDiv()
+
+function ApplyDragingForInputsDiv(){
+    let inputsDiv = document.getElementById('inputs')
+
+    inputsDiv.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    inputsDiv.addEventListener('drop', (e) => {
+        e.preventDefault();
+        inputsDiv.appendChild(draggedItem)
+    });
+
+
+}
