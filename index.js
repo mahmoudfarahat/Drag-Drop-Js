@@ -1,11 +1,9 @@
 let draggedItem = null;
 let positions = {};
-// let rowCount = 1; // Initial number of rows
-// let colCount = 1; // Initial number of columns
-// let gridItemCount = 1; // Initial number of grid items
 let tabCount = 1;
 
- 
+let tabs = {};
+tabs[1] = new Tab(1);
 
 
 document.addEventListener('dragstart', (e) => {
@@ -24,7 +22,21 @@ document.addEventListener('dragend', (e) => {
         draggedItem = null;
     }, 0);
 });
+ApplyDragingForMainDiv()
+function ApplyDragingForMainDiv(){
+    let inputsDiv = document.getElementById('inputs')
 
+    inputsDiv.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    inputsDiv.addEventListener('drop', (e) => {
+        e.preventDefault();
+        inputsDiv.appendChild(draggedItem)
+    });
+
+
+}
 
 
 function applyDragingForCells(){
@@ -45,15 +57,13 @@ function applyDragingForCells(){
         item.addEventListener('drop', (e) => {
             item.style.backgroundColor = 'transparent';
             item.appendChild(draggedItem);
-            const inputId = draggedItem.id;
-            const gridId = item.id;
-            const position = calculatePosition(gridId);
-            positions[inputId] = position;
+         
         });
     });
     
     
 }
+
 applyDragingForCells()
 
 
@@ -75,85 +85,20 @@ function handleDragLeave(e) {
 function handleDrop(e) {
     e.target.style.backgroundColor = 'transparent';
     e.target.appendChild(draggedItem);
-    const inputId = draggedItem.id;
-    const gridId = e.target.id;
-    const position = calculatePosition(gridId);
-    positions[inputId] = position;
-}
-
-function calculatePosition(gridId) {
-    const index = parseInt(gridId.replace('grid-item', '')) - 1;
-    const row = Math.floor(index / colCount) + 1;
-    const col = (index % colCount) + 1;
-    return { row: row, col: col };
-}
-
-function savePositions() {
-    const configuration = {
-        rows: rowCount,
-        columns: colCount,
-        positions: positions
-    };
-    const json = JSON.stringify(configuration, null, 2);
-    console.log(json);
+    
 }
 
  
-let tabs = {};
-tabs[1] = new Tab(1);
 
-// function addRow() {
+function savePositions() {
+    console.log(tabs)
+ 
+}
 
-//         tab.addRow()
-//     // const grid = document.getElementById('grid'+tabNumber);
-//     // rowCount++;
-//     // applyDraging(colCount,tabNumber,grid)
-//     // grid.style.gridTemplateRows = `repeat(${rowCount}, 100px)`;
-// }
-
-// function addColumn() {
-//     tab.addColumn()
-//     // const grid = document.getElementById('grid'+tabNumber);
-//     // colCount++;
-//     // applyDraging(rowCount,tabNumber,grid)
-//     // grid.style.gridTemplateColumns = `repeat(${colCount}, 100px)`;
-// }
+ 
 
 
-// function applyDraging(count,tabNumber,grid) {
-//     for (let i = 0; i < count; i++) {
-//         gridItemCount++;
-//         const newGridItem = document.createElement('div');
-//         newGridItem.className = 'grid-item';
-//         newGridItem.id = `tab${tabNumber}-grid-item${gridItemCount}`;
-//         newGridItem.addEventListener('dragover', handleDragOver);
-//         newGridItem.addEventListener('dragenter', handleDragEnter);
-//         newGridItem.addEventListener('dragleave', handleDragLeave);
-//         newGridItem.addEventListener('drop', handleDrop);
-//         grid.appendChild(newGridItem);
-//     }
-// }
-
-
-
-// function addNewTab() {
-
-//     tabCount++;
-//     const tabId = "tab" + tabCount + "default";
-//     const tabTitle = "Tab " + tabCount;
-
-//     // Add new tab header
-//     const newTabHeader = $('<li><a href="#' + tabId + '" data-toggle="tab">' + tabTitle + "</a></li>");
-
-//     $("#tabHeaders").append(newTabHeader);
-
-//     // Add new tab content
-//     const newTabContent = $('<div class="tab-pane fade" id="' + tabId + '">' + "</div>");
-
-//     $("#tabContents").append(newTabContent);
-
-//     addGrid(newTabContent, tabCount)
-// }
+ 
 
 function addGrid(newTab, tabNumber) {
 

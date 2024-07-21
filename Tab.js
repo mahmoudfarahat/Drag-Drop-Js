@@ -4,7 +4,6 @@ class Tab {
      gridItemCount = 1; 
      tabNumber;
      grid ;
-
      constructor(tabCount){
         this.tabNumber = tabCount
         this.grid = document.getElementById('grid'+this.tabNumber);
@@ -36,6 +35,21 @@ class Tab {
             newGridItem.addEventListener('drop', handleDrop);
             this.grid.appendChild(newGridItem);
         }
+    }
+    getPostions(){
+        const positions = [];
+        this.grid.querySelectorAll('.grid-item').forEach((item, index) => {
+            if (item.firstChild) {
+                const row = Math.floor(index / this.colCount) + 1;
+                const col = (index % this.colCount) + 1;
+                positions.push({
+                    name: item.firstChild.id,
+                    row: row,
+                    col: col
+                });
+            }
+        });
+        return positions;
     }
 
     
